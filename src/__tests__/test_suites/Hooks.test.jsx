@@ -30,11 +30,9 @@ describe("Task Manager App", () => {
     const button = getByText("Add Task");
 
     fireEvent.change(input, { target: { value: "Walk the dog" } });
-    
-    global.setFetchResponse({ id: 3, title: "Walk the dog", completed: false })
+    fireEvent.click(button);
 
     await waitFor(() => {
-      fireEvent.click(button);
       expect(screen.getByText("Walk the dog")).toBeInTheDocument();
     });
   });
@@ -65,7 +63,12 @@ describe("Task Manager App", () => {
       </TaskProvider>
     );
     const button =  await findAllByTestId("1")
-    global.setFetchResponse({ id: 1, title: "Buy groceries", completed: true })
+    global.setFetchResponse([{
+        "id": 1,
+        "name": "Woody",
+        "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
+        "likes": 8
+    }])
     
     
     await waitFor(() => {
